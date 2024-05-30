@@ -1,6 +1,7 @@
-
-import './App.css';
-import React,{useState} from "react";
+import "./App.css";
+import React, { useState } from "react";
+import CustomButton from "./CustomButton/CustomButton";
+import config from "./config";
 
 const Calculator = () => {
   const [firstValue, setFirstValue] = useState("");
@@ -8,30 +9,6 @@ const Calculator = () => {
   const [secondValue, setSecondValue] = useState("");
   const [resultValue, setResultValue] = useState(0);
   const [sign, setSign] = useState("");
-
-  const handleNumberClick = (value) => {
-    if (isFirstValue) {
-      if (value === "." && firstValue.includes(".")) return;
-      setFirstValue(firstValue + value);
-    } else {
-      if (value === "." && secondValue.includes(".")) return;
-      setSecondValue(secondValue + value);
-    }
-  };
-
-  const handleSignClick = (value) => {
-    if (firstValue !== "" && secondValue === "") {
-      setSign(value);
-      setIsFirstValue(false);
-    }
-  };
-
-  const handleEqualsClick = () => {
-    if (secondValue !== "") {
-      calculateResult();
-      setIsFirstValue(true);
-    }
-  };
 
   const calculateResult = () => {
     if (firstValue !== "" && secondValue !== "") {
@@ -61,17 +38,41 @@ const Calculator = () => {
     }
   };
 
-  const handleClearClick = () => {
+  const resetCalculator = () => {
+    setFirstValue("");
+    setIsFirstValue(true);
+    setSecondValue("");
     setResultValue(0);
-    resetCalculator();
+    setSign("");
   };
 
-  const handleNegativeClick = () => {
+  const handleNumberClick = (value) => {
     if (isFirstValue) {
-      setFirstValue((parseFloat(firstValue) * -1).toString());
+      if (value === "." && firstValue.includes(".")) return;
+      setFirstValue(firstValue + value);
     } else {
-      setSecondValue((parseFloat(secondValue) * -1).toString());
+      if (value === "." && secondValue.includes(".")) return;
+      setSecondValue(secondValue + value);
     }
+  };
+
+  const handleSignClick = (value) => {
+    if (firstValue !== "" && secondValue === "") {
+      setSign(value);
+      setIsFirstValue(false);
+    }
+  };
+
+  const handleEqualsClick = () => {
+    if (secondValue !== "") {
+      calculateResult();
+      setIsFirstValue(true);
+    }
+  };
+
+  const handleClearClick = () => {
+    resetCalculator();
+    setResultValue(0);
   };
 
   const handlePercentClick = () => {
@@ -82,16 +83,12 @@ const Calculator = () => {
     }
   };
 
-  const handleDecimalClick = () => {
-    handleNumberClick(".");
-  };
-
-  const resetCalculator = () => {
-    setFirstValue("");
-    setIsFirstValue(true);
-    setSecondValue("");
-    setResultValue(0);
-    setSign("");
+  const handleNegativeClick = () => {
+    if (isFirstValue) {
+      setFirstValue((parseFloat(firstValue) * -1).toString());
+    } else {
+      setSecondValue((parseFloat(secondValue) * -1).toString());
+    }
   };
 
   let displayValue;
@@ -107,97 +104,19 @@ const Calculator = () => {
         <span>{displayValue}</span>
       </div>
       <div className="buttons">
-        <button className="button1 clear" onClick={handleClearClick}>
-          AC
-        </button>
-        <button className="button1 negative" onClick={handleNegativeClick}>
-          +/-
-        </button>
-        <button className="button1 percent" onClick={handlePercentClick}>
-          %
-        </button>
-        <button className="button2 sign" onClick={() => handleSignClick("/")}>
-          /
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("7")}
-        >
-          7
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("8")}
-        >
-          8
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("9")}
-        >
-          9
-        </button>
-        <button className="button2 sign" onClick={() => handleSignClick("x")}>
-          x
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("4")}
-        >
-          4
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("5")}
-        >
-          5
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("6")}
-        >
-          6
-        </button>
-        <button className="button2 sign" onClick={() => handleSignClick("-")}>
-          -
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("1")}
-        >
-          1
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("2")}
-        >
-          2
-        </button>
-        <button
-          className="button3 number"
-          onClick={() => handleNumberClick("3")}
-        >
-          3
-        </button>
-        <button className="button2 sign" onClick={() => handleSignClick("+")}>
-          +
-        </button>
-        <button
-          className="button3 number zero"
-          onClick={() => handleNumberClick("0")}
-        >
-          0
-        </button>
-        <button className="button3 dot" onClick={handleDecimalClick}>
-          .
-        </button>
-        <button className="button2 equal" onClick={handleEqualsClick}>
-          =
-        </button>
+        {config({
+          handleClearClick,
+          handleNegativeClick,
+          handleEqualsClick,
+          handleNumberClick,
+          handlePercentClick,
+          handleSignClick,
+        }).map(({ type, label, onClick }) => {
+          return <CustomButton type={type} label={label} onClick={onClick} />;
+        })}
       </div>
     </div>
   );
 };
-
 
 export default Calculator;

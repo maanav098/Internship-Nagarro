@@ -125,12 +125,24 @@ body #fullheight {
 
 
 .zero {
-  margin-top: 3px;
+
+  background-color: #505050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  color: white;
+  border-color: #505050;
+  border-radius: 90%;
+  width: 180px;
+  height: 180px;
+  padding: 10px;
+  cursor: pointer;
+  margin: 12px 5px 5px 5px;  margin-top: 3px;
   background-color: #505050;
   width: 435px;
   border-radius: 150px;
   grid-column: span 2;
   border: none;
   align-self: auto;
-
-}
+  }
