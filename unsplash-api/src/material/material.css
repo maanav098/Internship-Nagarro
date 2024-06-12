@@ -1,0 +1,48 @@
+
+.root {
+    display: flex;
+}
+
+.menuButton {
+    margin-right: 16px;
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .menuButton {
+        display: block;
+    }
+}
+
+.title {
+    flex-grow: 1;
+    display: none;
+    margin: 16px 0;
+    text-align: center;
+}
+
+@media (min-width: 600px) {
+    .title {
+        display: block;
+    }
+}
+
+.navItems {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .navItems {
+        display: block;
+    }
+}
+
+.drawer {
+    text-align: center;
+}
+
+
+
+.clr{
+    color: white;
+}
