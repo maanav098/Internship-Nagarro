@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import './material.css';
+import { Link } from '@mui/material';
 
 
 
@@ -40,15 +41,17 @@ export default function DrawerAppBar(props: Props) {
   };
 
   const drawer = (
-    <Box className='drawer'>
-      <Typography variant="h6" className='title'>
-        Unsplash
+    <Box className="drawer">
+      <Typography variant="h6" className="title">
+        <Link href="/homepage" sx={{ color: "white" }}>
+          Unsplash
+        </Link>
       </Typography>
       <Divider />
       <List>
         {navItems.map((item) => (
           <ListItem key={item.text} disablePadding>
-            <ListItemButton  className='drawer'  href={item.path} >
+            <ListItemButton className="drawer" href={item.path}>
               <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
@@ -61,7 +64,7 @@ export default function DrawerAppBar(props: Props) {
 
   
   return (
-    <Box className='root'>
+    <Box className="root">
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
@@ -70,22 +73,23 @@ export default function DrawerAppBar(props: Props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            Unsplash
+            <Link href='/' sx={{color:"white"}}>
+              Unsplash
+            </Link>
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item.text} sx={{color: 'white'}} 
-                href={item.path}>
-                {item.path}
+              <Button key={item.text} sx={{ color: "white" }} href={item.path}>
+                {item.text}
               </Button>
             ))}
           </Box>
@@ -101,8 +105,11 @@ export default function DrawerAppBar(props: Props) {
             keepMounted: true,
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}

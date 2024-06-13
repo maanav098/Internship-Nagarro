@@ -1,63 +1,53 @@
-import "../App.css"
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import '../App.css';
-import { API, Random } from '../controller.tsx/imagesController';
-import { fetchImagesError, fetchImagesSuccess } from '../store/action';
-import { errorSelector, imagesSelector } from '../store/selectors';
 
-const Randomp: React.FC=() => {
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import "../App.css";
+import { Random } from "../controller.tsx/imagesController";
+import { fetchImageError, fetchRandomImageSuccess } from "../store/action";
+import { errorSelector, imageSelector } from "../store/selectors";
+import DrawerAppBar from "../material/material";
+
+const Randomp: React.FC = () => {
   const dispatch = useDispatch();
-  const images = useSelector(imagesSelector);
+  const image = useSelector(imageSelector);
   const error = useSelector(errorSelector);
+  
+
 
   useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        const data = await API();
-        if (Array.isArray(data)) {
-          const imageUrls = data.map((img: { urls: { small: string } }) => img.urls.small);
-          dispatch(fetchImagesSuccess(imageUrls));
+      const fetchRandomImage = async () => {
+        try {
+          const data = await Random();
+          dispatch(fetchRandomImageSuccess(data));
+        } catch {
+          dispatch(fetchImageError());
         }
-      } catch {
-        dispatch(fetchImagesError());
-      }
-    };
-    fetchImage();
-  }, [dispatch]);
-
-  useEffect(() => {
-    const fetchRandomImage = async () => {
-      try {
-        const data = await Random();
-        if (Array.isArray(data)) {
-          const imageUrls = data.map((img: { urls: { small: string } }) => img.urls.small);
-          dispatch(fetchImagesSuccess(imageUrls));
-        }
-      } catch {
-        dispatch(fetchImagesError());
-      }
-    };
+      };
+      
     fetchRandomImage();
   }, [dispatch]);
 
-  const Rdm: React.FC = () => (
-    <div>
+  return (
+    <div><DrawerAppBar />
+    <div className="App-header">
       {error ? (
-        <p>Error</p>
+        <div>
+          <h1 className="text">SERVER ERROR</h1>
+          <p className="text">Error fetching the image</p>
+        </div>
       ) : (
-        images.length > 0 && (
-          <div className="App-header">
-            {images.slice(0, 10).map((image, index) => (
-              <img key={index} src={image} className="App-logo" alt="logo" />
-            ))}
-          </div>
+        image && (
+          <img
+            key={image.urls.small}
+            src={image.urls.small}
+            alt="logo"
+            className="App-logo"
+          />
         )
       )}
     </div>
+    </div>
   );
-return(<Rdm />
-)
-}
+};
 
 export default Randomp;
