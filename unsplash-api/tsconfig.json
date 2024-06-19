@@ -27,6 +27,5 @@
     },
 
   "include": [
-    "src"
-, "../unsplash-demo/public/useAuth.tsx"  ]
+    "src"  ]
 }

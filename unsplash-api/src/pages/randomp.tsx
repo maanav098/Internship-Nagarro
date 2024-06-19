@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../App.css";
@@ -14,18 +13,19 @@ const Randomp: React.FC = () => {
   
 
 
-  useEffect(() => {
-      const fetchRandomImage = async () => {
-        try {
-          const data = await Random();
-          dispatch(fetchRandomImageSuccess(data));
-        } catch {
-          dispatch(fetchImageError());
-        }
-      };
-      
-    fetchRandomImage();
-  }, [dispatch]);
+useEffect(() => {
+  const fetchRandomImage = async () => {
+    Random()
+      .then((data) => {
+        dispatch(fetchRandomImageSuccess(data));
+      })
+      .catch((error) => {
+        dispatch(fetchImageError());
+        console.log("error");
+      });
+  };
+  fetchRandomImage();
+}, [dispatch]);
 
   return (
     <div><DrawerAppBar />

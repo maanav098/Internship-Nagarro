@@ -1,7 +1,6 @@
 
 import axiosInstance from './axiosIntstance';
 
-
 export const API = async () => {
   try {
     const response = await axiosInstance.get("/photos",{
@@ -10,7 +9,8 @@ export const API = async () => {
       }
     })    
     console.log(response.data);
-    return response.data;  
+    return (response.data );
+      
   } catch (error) {
     console.log(error)
     return [error];  

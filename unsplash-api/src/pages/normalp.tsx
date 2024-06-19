@@ -7,12 +7,10 @@ import { errorSelector, imagesSelector } from "../store/selectors";
 import DrawerAppBar from "../material/material";
 
 const NormalPhotos: React.FC = () => {
-  
   const dispatch = useDispatch();
   const images = useSelector(imagesSelector);
   const error = useSelector(errorSelector);
-    
-  
+
   useEffect(() => {
     const fetchImage = async () => {
       try {
@@ -26,36 +24,37 @@ const NormalPhotos: React.FC = () => {
         }
       } catch (error) {
         dispatch(fetchImageError());
-        console.log("error");
+        console.log("error", error);
       }
     };
+
     fetchImage();
   }, [dispatch]);
-
   return (
-    <div><DrawerAppBar />
-    
     <div>
-      {error ? (
-        <div>
-          <h1 className="text">SERVER ERROR</h1>
-          <p className="text"> Error fetching the image</p>
-        </div>
-      ) : (
-        images.length > 0 && (
-          <div className="App-header">
-            {images.slice(0, 10).map((image, index) => (
-              <img
-                key={index}
-                src={image.urls.small}
-                className="App-logo"
-                alt="logo"
-              />
-            ))}
+      <DrawerAppBar />
+
+      <div>
+        {error ? (
+          <div>
+            <h1 className="text">SERVER ERROR</h1>
+            <p className="text"> Error fetching the image</p>
           </div>
-        )
-      )}
-    </div>
+        ) : (
+          images.length > 0 && (
+            <div className="App-header">
+              {images.slice(0, 10).map((image, index) => (
+                <img
+                  key={index}
+                  src={image.urls.small}
+                  className="App-logo"
+                  alt="logo"
+                />
+              ))}
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 };
