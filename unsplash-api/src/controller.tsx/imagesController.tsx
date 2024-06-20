@@ -1,5 +1,5 @@
 
-import axiosInstance from './axiosIntstance';
+import {axiosInstance} from './axiosIntstance';
 
 export const API = async () => {
   try {

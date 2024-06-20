@@ -9,6 +9,8 @@ import Randomp from "./randomp";
 import { AuthProvider } from "../store/useAuth";
 import { LogOut } from "./logout";
 
+
+
 function Reactrouter() {
   return (
     <BrowserRouter>
@@ -22,7 +24,7 @@ function Reactrouter() {
             <Route path="/" element={<Homepage />} />
             <Route path="/photos" element={<NormalPhotos />} />
             <Route path="/random" element={<Randomp />} />
-            <Route path="/logout" element={<LogOut/>} />
+            <Route path="/logout" element={<LogOut />} />
           </Route>
         </Routes>
       </AuthProvider>
