@@ -13,13 +13,17 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAuth } from "../../store/useAuth";
-import "./login.css"
+import "./login.css";
+import { ReactComponent as CustomIcon } from "./customicon.svg";
+import { paths } from "../helpers/constants";
+import { id } from "../helpers/unsplashID";
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://unsplash.com/developers">
+      <Link color="inherit" href={paths.Unshplash_Dev}>
         Unsplash-API-Demo
       </Link>{" "}
       {new Date().getFullYear()}
@@ -33,19 +37,35 @@ const defaultTheme = createTheme();
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { userLogin } = useAuth();
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const username = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    if (username === "email" && password === "password") {
-      await login(username);
+    if (!username) {
+      alert("Please provide a username");
+    } else if (!password) {
+      alert("Please provide a password");
+    } else if (username === "123" && password === "pass1") {
+      userLogin(username, password);
+      alert("Logged in")
     } else {
-      alert("Invalid username or password");
+      alert("Invalid credentials");
     }
+  };
+
+  const handleLogin = () => {
+    const clientId = `${id.access}`;
+    const redirectUri = `${id.redirectid}${paths.token}`;
+    const responseType = "code";
+    const scope = "public";
+
+    const authUrl = `https://unsplash.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+
+    window.location.href = authUrl;
   };
 
   return (
@@ -101,16 +121,32 @@ function LoginPage() {
             >
               Sign In
             </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              startIcon={<CustomIcon />}
+              onClick={handleLogin}
+              sx={{
+                mt: 1,
+                mb: 2,
+                color: "black",
+                bgcolor: "white",
+                justifyContent: "flex-start",
+                "&:hover": {
+                  bgcolor: "#6fc1ff",
+                },
+              }}
+            >
+              Sign In with Unsplash API
+            </Button>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Link href="#" variant="body1" margin={1}>
                 Forgot password?
               </Link>
               <Button
-                type="submit"
                 variant="contained"
-                fullWidth
                 sx={{ mt: 1, mb: 2 }}
-                href="/register"
+                href={paths.register}
               >
                 Sign up
               </Button>

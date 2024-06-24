@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useMemo, ReactNode } from "react";
-import { useNavigate } from "react-router";
-import { useLocalStorage } from "./useLocalStorage";
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { SESSION_STORAGE_KEYS } from "../pages/helpers/constants";
 
 interface AuthContextType {
-  user: any;
-  login: (data: any) => Promise<void>;
+  isAuthenticated: boolean;
+  userLogin: (username:string,password:string) => void;
+  login: (token: string) => void;
   logout: () => void;
 }
 
@@ -15,36 +15,37 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useLocalStorage("user", null);
-  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const token = sessionStorage.getItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN);
+  
+    return !!token;
+  });
+  const userLogin = (username:string , password:string )=> {
+    sessionStorage.setItem(SESSION_STORAGE_KEYS.USERNAME,username);
+    sessionStorage.setItem(SESSION_STORAGE_KEYS.PASSWORD,password);
+    setIsAuthenticated(true);
+  }
 
-  // Call this function when you want to authenticate the user
-  const login = async (data: any) => {
-    setUser(data);
-    navigate("/");
+  const login = (token: string) => {
+    sessionStorage.setItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN, token);
+    setIsAuthenticated(true);
   };
 
-  // Call this function to sign out logged in user
   const logout = () => {
-    setUser(null);
-    navigate("/", { replace: true });
+    sessionStorage.removeItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN);
+    setIsAuthenticated(false);
   };
 
-  const value = useMemo(
-    () => ({
-      user,
-      login,
-      logout,
-    }),
-    [user]
+  return (
+    <AuthContext.Provider value={{ isAuthenticated,userLogin,login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;

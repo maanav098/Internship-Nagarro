@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,12 +8,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useAuth } from "../../store/useAuth";
-import { createTheme } from "@mui/material";
-import { ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import { useAuth } from "../../store/useAuth";
 import "./register.css"; // Import the CSS file
 
 const defaultTheme = createTheme();
@@ -28,7 +26,8 @@ const Register: React.FC = () => {
 
     if (name && email && password) {
       try {
-        await login({ username: email });
+        // Call login with password directly, assuming this is your flow
+        await login(password);
         console.log("Registration successful");
       } catch (error) {
         alert("Registration failed. Please try again.");
@@ -36,18 +35,12 @@ const Register: React.FC = () => {
     } else {
       alert("Please fill out all fields.");
     }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <Box className="register-container">
-        <CssBaseline />
         <Paper
           elevation={10}
           component="form"
