@@ -1,33 +1,56 @@
+import { axiosInstance } from "./axiosIntstance";
 
-import {axiosInstance} from './axiosIntstance';
+
+const accessToken = sessionStorage.getItem("unsplash_access_token");
 
 export const API = async () => {
   try {
-    const response = await axiosInstance.get("/photos",{
-      params : {
-        client_id:"Rhj6lYrk1mgmy41e3fPcqT_NV2neardQRLfkewHk7X8"
-      }
-    })    
+    const response = await axiosInstance.get("/photos", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
     console.log(response.data);
-    return (response.data );
-      
+    return response.data;
   } catch (error) {
-    console.log(error)
-    return [error];  
+    console.error(error);
+    return [error];
   }
 };
 
 export const Random = async () => {
   try {
-    const abc = await axiosInstance.get("/photos/random", {
-      params: {
-        client_id: "Rhj6lYrk1mgmy41e3fPcqT_NV2neardQRLfkewHk7X8",
+    const response = await axiosInstance.get("/photos/random", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
     });
-    console.log(abc.data);
-    return abc.data;
+
+    console.log(response.data);
+    return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return [error];
+  }
+};
+
+
+export const getUserProfile = async () => {
+  try {
+    const response = await axiosInstance.get("/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
   }
 };

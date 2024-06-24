@@ -16,7 +16,7 @@ import { useAuth } from "../../store/useAuth";
 import "./login.css";
 import { ReactComponent as CustomIcon } from "./customicon.svg";
 import { paths } from "../helpers/constants";
-import { id } from "../helpers/unsplashID";
+
 
 
 function Copyright() {
@@ -58,8 +58,8 @@ function LoginPage() {
   };
 
   const handleLogin = () => {
-    const clientId = `${id.access}`;
-    const redirectUri = `${id.redirectid}${paths.token}`;
+    const clientId = `${process.env.REACT_APP_API_ACCESS_KEY}`;
+    const redirectUri = `${process.env.REACT_APP_REDIRECT_URL}`;
     const responseType = "code";
     const scope = "public";
 

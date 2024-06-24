@@ -3,7 +3,8 @@ import { SESSION_STORAGE_KEYS } from "../pages/helpers/constants";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  userLogin: (username:string,password:string) => void;
+  userLogin: (username: string, password: string) => void;
+  
   login: (token: string) => void;
   logout: () => void;
 }
@@ -17,27 +18,33 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const token = sessionStorage.getItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN);
-  
     return !!token;
   });
-  const userLogin = (username:string , password:string )=> {
-    sessionStorage.setItem(SESSION_STORAGE_KEYS.USERNAME,username);
-    sessionStorage.setItem(SESSION_STORAGE_KEYS.PASSWORD,password);
+
+
+
+  const userLogin = (username: string, password: string) => {
+    sessionStorage.setItem(SESSION_STORAGE_KEYS.USERNAME, username);
+    sessionStorage.setItem(SESSION_STORAGE_KEYS.PASSWORD, password);
+   
     setIsAuthenticated(true);
-  }
+  };
 
   const login = (token: string) => {
     sessionStorage.setItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN, token);
+    
     setIsAuthenticated(true);
   };
 
   const logout = () => {
     sessionStorage.removeItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN);
+    sessionStorage.removeItem(SESSION_STORAGE_KEYS.USERNAME); 
     setIsAuthenticated(false);
+   
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated,userLogin,login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userLogin,  login, logout }}>
       {children}
     </AuthContext.Provider>
   );

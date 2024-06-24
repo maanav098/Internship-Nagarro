@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../App.css";
-import { API } from "../controller.tsx/imagesController";
+import { API, } from "../controller.tsx/imagesController";
 import { fetchImageError, fetchImageSuccess } from "../store/action";
 import { errorSelector, imagesSelector } from "../store/selectors";
 import DrawerAppBar from "../material/material";
@@ -18,7 +18,9 @@ const NormalPhotos: React.FC = () => {
 
         if (Array.isArray(data)) {
           const imageUrls = data.map((img) => img.urls.small);
+          
           dispatch(fetchImageSuccess(imageUrls));
+          
         } else {
           dispatch(fetchImageError());
         }
@@ -51,7 +53,9 @@ const NormalPhotos: React.FC = () => {
                   alt="logo"
                 />
               ))}
+            
             </div>
+      
           )
         )}
       </div>
