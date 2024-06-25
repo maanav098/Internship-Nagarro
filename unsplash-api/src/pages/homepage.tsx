@@ -18,6 +18,7 @@ const Homepage: React.FC = () => {
     const fetchProfile = async () => {
       try {
         const data = await getUserProfile();
+        console.log(data);
         setProfile(data); 
       } catch (error) {
         setError("error"); 
@@ -26,7 +27,7 @@ const Homepage: React.FC = () => {
 
     fetchProfile();
   }, [setProfile,setError]);
-
+  
 
 
 

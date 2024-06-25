@@ -1,7 +1,7 @@
 import { axiosInstance } from "./axiosIntstance";
 
 
-const accessToken = sessionStorage.getItem("unsplash_access_token");
+const accessToken = '';
 
 export const API = async () => {
   try {
@@ -39,10 +39,11 @@ export const Random = async () => {
 
 
 export const getUserProfile = async () => {
+  const atoken = sessionStorage.getItem("unsplash_access_token");
   try {
     const response = await axiosInstance.get("/me", {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${atoken}`,
         "Content-Type": "application/json",
       },
     });
