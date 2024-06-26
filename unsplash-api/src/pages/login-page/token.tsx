@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/useAuth";
-
+import { axiosInstance } from "../../controller.tsx/axiosIntstance";
 
 const Token: React.FC = () => {
   const navigate = useNavigate();
@@ -9,9 +9,9 @@ const Token: React.FC = () => {
 
   useEffect(() => {
     const fetchAccessToken = async (code: string) => {
-      const clientId =`${process.env.REACT_APP_API_ACCESS_KEY}`;
-      const clientSecret = `${process.env.REACT_APP_API_SECRET_KEY}`;
-      const redirectUri = `${process.env.REACT_APP_REDIRECT_URL}`;
+      const clientId = process.env.REACT_APP_API_ACCESS_KEY;
+      const clientSecret = process.env.REACT_APP_API_SECRET_KEY;
+      const redirectUri = process.env.REACT_APP_REDIRECT_URL;
       const tokenUrl = "https://unsplash.com/oauth/token";
 
       const requestBody = {
@@ -39,6 +39,9 @@ const Token: React.FC = () => {
 
         const data = await response.json();
         console.log("Access_token_data:", data);
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${data.access_token}`;
         const accessToken = data.access_token;
         login(accessToken);
         navigate("/homepage");

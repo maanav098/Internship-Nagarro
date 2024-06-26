@@ -41,6 +41,7 @@ export default function DrawerAppBar(props: Props) {
     await logout();
   };
 
+
   const drawer = (
     <Box className="drawer">
       <Typography variant="h6" className="title">
@@ -87,7 +88,7 @@ export default function DrawerAppBar(props: Props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}
           >
-            <Link href="/" sx={{ color: "white" }} >
+            <Link href="/" sx={{ color: "white" }}>
               Unsplash
             </Link>
           </Typography>

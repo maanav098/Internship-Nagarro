@@ -16,8 +16,7 @@ import { useAuth } from "../../store/useAuth";
 import "./login.css";
 import { ReactComponent as CustomIcon } from "./customicon.svg";
 import { paths } from "../helpers/constants";
-
-
+import  styles from "./styles"
 
 function Copyright() {
   return (
@@ -33,6 +32,7 @@ function Copyright() {
 }
 
 const defaultTheme = createTheme();
+const {lockIcon,signin,signinAPI,box,signup} = styles
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -74,7 +74,7 @@ function LoginPage() {
       <Box className="login-container">
         <CssBaseline />
         <Paper elevation={10} className="login-paper">
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={lockIcon}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -117,7 +117,7 @@ function LoginPage() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={signin}
             >
               Sign In
             </Button>
@@ -126,26 +126,17 @@ function LoginPage() {
               variant="contained"
               startIcon={<CustomIcon />}
               onClick={handleLogin}
-              sx={{
-                mt: 1,
-                mb: 2,
-                color: "black",
-                bgcolor: "white",
-                justifyContent: "flex-start",
-                "&:hover": {
-                  bgcolor: "#6fc1ff",
-                },
-              }}
+              sx={signinAPI}
             >
               Sign In with Unsplash API
             </Button>
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={box}>
               <Link href="#" variant="body1" margin={1}>
                 Forgot password?
               </Link>
               <Button
                 variant="contained"
-                sx={{ mt: 1, mb: 2 }}
+                sx={signup}
                 href={paths.register}
               >
                 Sign up
