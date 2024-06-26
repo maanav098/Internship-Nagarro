@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/useAuth";
 import { axiosInstance } from "../../controller.tsx/axiosIntstance";
+import strings from "../../localization/en";
 
 const Token: React.FC = () => {
   const navigate = useNavigate();
@@ -33,12 +34,12 @@ const Token: React.FC = () => {
 
         if (!response.ok) {
           const errorData = await response.json();
-          console.error("Failed to fetch access token:", errorData);
-          throw new Error("Failed to fetch access token");
+          console.error(strings.console_error_fetch, errorData);
+          throw new Error(strings.console_error_fetch);
         }
 
         const data = await response.json();
-        console.log("Access_token_data:", data);
+        console.log(strings.console_log_accesstoken, data);
         axiosInstance.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${data.access_token}`;
@@ -46,7 +47,7 @@ const Token: React.FC = () => {
         login(accessToken);
         navigate("/homepage");
       } catch (error) {
-        console.error("Error fetching access token:", error);
+        console.error(strings.console_error_fetch, error);
       }
     };
 
@@ -54,14 +55,14 @@ const Token: React.FC = () => {
     const code = params.get("code");
 
     if (code) {
-      console.log("Authorization code:", code);
+      console.log(strings.console_log_auth_code, code);
       fetchAccessToken(code);
     } else {
-      console.error("Authorization code not found in URL");
+      console.error(strings.console_error_auth_code);
     }
   }, [navigate, login]);
 
-  return <div>Loading your token...</div>;
+  return <div>{strings.loading_token}</div>;
 };
 
 export default Token;

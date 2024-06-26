@@ -1,6 +1,7 @@
 
 
 import axios from "axios";
+import { SESSION_STORAGE_KEYS } from "../pages/helpers/constants";
 
 const axiosInstance = axios.create({
   baseURL: "https://api.unsplash.com/", 
@@ -12,7 +13,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken = sessionStorage.getItem("unsplash_access_token");
+    const accessToken = sessionStorage.getItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN);
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }

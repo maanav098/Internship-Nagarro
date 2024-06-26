@@ -17,13 +17,14 @@ import "./login.css";
 import { ReactComponent as CustomIcon } from "./customicon.svg";
 import { paths } from "../helpers/constants";
 import  styles from "./styles"
+import strings from "../../localization/en";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
+      {strings.copyright}
       <Link color="inherit" href={paths.Unshplash_Dev}>
-        Unsplash-API-Demo
+        {strings.unsplash_demo}
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -46,14 +47,14 @@ function LoginPage() {
     const password = formData.get("password") as string;
 
     if (!username) {
-      alert("Please provide a username");
+      alert(strings.alert_username);
     } else if (!password) {
-      alert("Please provide a password");
+      alert(strings.alert_password);
     } else if (username === "123" && password === "pass1") {
       userLogin(username, password);
-      alert("Logged in")
+      alert(strings.alert_loggedin)
     } else {
-      alert("Invalid credentials");
+      alert(strings.alert_invalid);
     }
   };
 
@@ -78,7 +79,7 @@ function LoginPage() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {strings.signIn}
           </Typography>
           <Box
             component="form"
@@ -119,7 +120,7 @@ function LoginPage() {
               variant="contained"
               sx={signin}
             >
-              Sign In
+              {strings.signIn}
             </Button>
             <Button
               fullWidth
@@ -128,18 +129,18 @@ function LoginPage() {
               onClick={handleLogin}
               sx={signinAPI}
             >
-              Sign In with Unsplash API
+             {strings.signIn_API}
             </Button>
             <Box sx={box}>
               <Link href="#" variant="body1" margin={1}>
-                Forgot password?
+                {strings.forgot}
               </Link>
               <Button
                 variant="contained"
                 sx={signup}
                 href={paths.register}
               >
-                Sign up
+                {strings.signUp}
               </Button>
             </Box>
             <Copyright />

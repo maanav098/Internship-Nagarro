@@ -1,5 +1,6 @@
 import { useAuth } from "../store/useAuth"
-import en from "../localization/en";
+
+import strings from "../localization/en";
 
 export const LogOut = () => {
   const { logout } = useAuth();
@@ -10,8 +11,8 @@ export const LogOut = () => {
 
   return (
     <div>
-      <h1>{en.logOut}</h1>
-      <button onClick={handleLogout}>Logout</button>
+      <h1>{strings.logout}</h1>
+      <button onClick={handleLogout}>{strings.logOut}</button>
     </div>
   );
 };

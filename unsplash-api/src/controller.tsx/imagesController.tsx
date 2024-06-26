@@ -1,5 +1,6 @@
 
 import { axiosInstance} from "./axiosIntstance";
+import strings from "../localization/en";
 
 
 
@@ -10,7 +11,7 @@ export const API = async () => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching photos:", error);
+    console.error(strings.console_error_photo, error);
     return [error];
   }
 };
@@ -21,7 +22,7 @@ export const Random = async () => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching random photo:", error);
+    console.error(strings.console_error_random, error);
     return [error];
   }
 };
@@ -32,7 +33,7 @@ export const getUserProfile = async () => {
     const response = await axiosInstance.get("/me");
     return response.data;
   } catch (error) {
-    console.error("Error fetching user profile:", error);
+    console.error(strings.console_error_profile, error);
     return error;
   }
 };

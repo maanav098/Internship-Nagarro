@@ -16,12 +16,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Link from "@mui/material/Link";
 import "./material.css";
 import { useAuth } from "../store/useAuth";
+import material from "./materialstyles";
+import strings from "../localization/en";
 
 interface Props {
   window?: () => Window;
 }
 
-const drawerWidth = 240;
+
 const navItems = [
   { text: "Photos", path: "Photos" },
   { text: "Random", path: "Random" },
@@ -46,7 +48,7 @@ export default function DrawerAppBar(props: Props) {
     <Box className="drawer">
       <Typography variant="h6" className="title">
         <Link href="/" sx={{ color: "white" }}>
-          Unsplash
+          {strings.Unsplash}
         </Link>
       </Typography>
       <Divider />
@@ -86,17 +88,17 @@ export default function DrawerAppBar(props: Props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}
+            sx={material.iconbutton}
           >
-            <Link href="/" sx={{ color: "white" }}>
-              Unsplash
+            <Link href="/" sx={material.unsplash}>
+              {strings.Unsplash}
             </Link>
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box sx={material.box}>
             {navItems.map((item) => (
               <Button
                 key={item.text}
-                sx={{ color: "white" }}
+                sx={material.unsplash}
                 href={item.path}
                 onClick={item.text === "LogOut" ? handleLogout : undefined}
               >
@@ -115,13 +117,8 @@ export default function DrawerAppBar(props: Props) {
           ModalProps={{
             keepMounted: true,
           }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
+          sx={material.drawer}
+         
         >
           {drawer}
         </Drawer>

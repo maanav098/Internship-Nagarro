@@ -2,6 +2,7 @@ import "../App.css";
 import DrawerAppBar from "../material/material";
 import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../controller.tsx/imagesController";
+import strings from "../localization/en";
 
 
 interface UserProfile {
@@ -21,7 +22,7 @@ const Homepage: React.FC = () => {
         console.log(data);
         setProfile(data); 
       } catch (error) {
-        setError("error"); 
+        setError(strings.error); 
       }
     };
 
@@ -32,11 +33,11 @@ const Homepage: React.FC = () => {
 
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{strings.error}{error}</div>;
   }
 
   if (!profile) {
-    return <div>Loading...</div>;
+    return <div>{strings.loading}</div>;
   }
 
   return (
@@ -44,14 +45,14 @@ const Homepage: React.FC = () => {
       <DrawerAppBar />
       <header>
         <div>
-          <h1 className="text">HOMEPAGE</h1>
+          <h1 className="text">{strings.homepage_h1}</h1>
         </div>
       </header>
       <p className="text">
-        This is an Unsplash-API demo to fetch random images and normal images...
+        {strings.homepage_p1}
       </p>
-      <h2 className="text">User Profile</h2>
-      <i className="text">Unsplash Username: {profile.username}</i>
+      <h2 className="text">{strings.user}</h2>
+      <i className="text">{strings.unsplash_username}{profile.username}</i>
       <p className="text">
         Name: {profile.first_name} {profile.last_name}
       </p>

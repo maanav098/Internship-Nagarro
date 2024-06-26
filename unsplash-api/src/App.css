@@ -19,6 +19,8 @@
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: center;
 }
 
 .App-link {
