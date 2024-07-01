@@ -54,3 +54,7 @@ nav>ul {
 nav>ul>#login {
     margin-left: auto;
 }
+
+.grey{
+    color: grey;
+}

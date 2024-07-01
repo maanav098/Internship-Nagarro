@@ -14,25 +14,34 @@ import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "@mui/material/Link";
+import SearchIcon from "@mui/icons-material/Search";
 import "./material.css";
 import { useAuth } from "../store/useAuth";
 import material from "./materialstyles";
 import strings from "../localization/en";
 
+
 interface Props {
   window?: () => Window;
 }
 
-
 const navItems = [
-  { text: "Photos", path: "Photos" },
-  { text: "Random", path: "Random" },
+  {
+    text: "Search",
+    path: "/search",
+    icon: <SearchIcon />,
+    className: "greyButton",
+  },
+  { text: "Collection", path: "/collection" },
+  { text: "Photos", path: "/photos" },
+  { text: "Random", path: "/random" },
   { text: "LogOut", path: "/login" },
 ];
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
   const { logout } = useAuth();
 
   const handleDrawerToggle = () => {
@@ -42,7 +51,6 @@ export default function DrawerAppBar(props: Props) {
   const handleLogout = async () => {
     await logout();
   };
-
 
   const drawer = (
     <Box className="drawer">
@@ -56,10 +64,11 @@ export default function DrawerAppBar(props: Props) {
         {navItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton
-              className="drawer"
+              className={`drawer ${item.className || ""}`}
               href={item.path}
               onClick={item.text === "LogOut" ? handleLogout : undefined}
             >
+              {item.icon && <item.icon.type sx={{ mr: 2 }} />}
               <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
@@ -68,8 +77,7 @@ export default function DrawerAppBar(props: Props) {
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const container =window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box className="root">
@@ -85,14 +93,11 @@ export default function DrawerAppBar(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={material.iconbutton}
-          >
+          <Typography variant="h6" component="div" sx={material.iconbutton}>
             <Link href="/" sx={material.unsplash}>
               {strings.Unsplash}
             </Link>
+          
           </Typography>
           <Box sx={material.box}>
             {navItems.map((item) => (
@@ -101,7 +106,9 @@ export default function DrawerAppBar(props: Props) {
                 sx={material.unsplash}
                 href={item.path}
                 onClick={item.text === "LogOut" ? handleLogout : undefined}
+                className={item.className || ""}
               >
+                {item.icon ? <item.icon.type sx={{ mr: 1 }} /> : null}
                 {item.text}
               </Button>
             ))}
@@ -118,7 +125,6 @@ export default function DrawerAppBar(props: Props) {
             keepMounted: true,
           }}
           sx={material.drawer}
-         
         >
           {drawer}
         </Drawer>

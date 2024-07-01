@@ -35,3 +35,60 @@
   flex-wrap: wrap;
 
 }
+
+
+.dark-theme {
+  background-color: #333;
+  color: #fff;
+}
+
+.light-theme {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Example CSS for Photo Information */
+.photo-info-container {
+  background-color: #f8f9fa;
+  /* Light gray background */
+  border: 1px solid #ccc;
+  /* Gray border */
+  border-radius: 8px;
+  /* Rounded corners */
+  padding: 16px;
+  /* Padding around content */
+  margin-bottom: 16px;
+  /* Space below each container */
+}
+
+.photo-info-container p {
+
+      margin-bottom: 8px;
+        font-size: 16px;
+        line-height: 1.3;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        align-content: center;
+}
+
+.photo-info-container a {
+  color: #007bff;
+  /* Blue link color */
+  text-decoration: none;
+  /* Remove underline */
+  display: block;
+  /* Make link block-level */
+  font-size: 14px;
+  /* Smaller font size for link */
+  margin-top: 8px;
+  /* Space above link */
+}
+
+.photo-info-container a:hover {
+  text-decoration: underline;
+  /* Underline on hover */
+}
+

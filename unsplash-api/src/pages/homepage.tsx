@@ -1,8 +1,10 @@
 import "../App.css";
-import DrawerAppBar from "../material/material";
+import DrawerAppBar from "../navbar_materialui/material";
 import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../controller.tsx/imagesController";
 import strings from "../localization/en";
+
+
 
 
 interface UserProfile {
@@ -14,6 +16,8 @@ interface UserProfile {
 const Homepage: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [error, setError] = useState<string | null>(null);
+  
+
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -28,6 +32,9 @@ const Homepage: React.FC = () => {
 
     fetchProfile();
   }, [setProfile,setError]);
+
+
+
   
 
 
@@ -41,6 +48,7 @@ const Homepage: React.FC = () => {
   }
 
   return (
+    
     <div>
       <DrawerAppBar />
       <header>
@@ -48,16 +56,21 @@ const Homepage: React.FC = () => {
           <h1 className="text">{strings.homepage_h1}</h1>
         </div>
       </header>
-      <p className="text">
-        {strings.homepage_p1}
-      </p>
+      <p className="text">{strings.homepage_p1}</p>
       <h2 className="text">{strings.user}</h2>
-      <i className="text">{strings.unsplash_username}{profile.username}</i>
+      <i className="text">
+        {strings.unsplash_username}
+        {profile.username}
+      </i>
       <p className="text">
         Name: {profile.first_name} {profile.last_name}
       </p>
-    </div>
+      </div>
+
+    
   );
 };
 
 export default Homepage;
+
+

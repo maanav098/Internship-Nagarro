@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAuth } from "../../store/useAuth";
 import "./login.css";
 import { ReactComponent as CustomIcon } from "./customicon.svg";
-import { paths } from "../helpers/constants";
+import { paths } from "../../helpers/constants";
 import  styles from "./styles"
 import strings from "../../localization/en";
 

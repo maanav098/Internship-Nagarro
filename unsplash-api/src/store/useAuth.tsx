@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { SESSION_STORAGE_KEYS } from "../pages/helpers/constants";
+import { SESSION_STORAGE_KEYS } from "../helpers/constants";
 
 interface AuthContextType {
   isAuthenticated: boolean;

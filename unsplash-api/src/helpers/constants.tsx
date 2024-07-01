@@ -8,6 +8,8 @@ export const paths = {
   random:"/random",
   logout:"/logout",
   Unshplash_Dev:"https://unsplash.com/developers",
+  collection: "/collection",
+  search:"/search"
 };
 
 export const SESSION_STORAGE_KEYS = {

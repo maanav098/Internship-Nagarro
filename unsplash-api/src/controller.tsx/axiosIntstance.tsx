@@ -1,15 +1,12 @@
-
-
 import axios from "axios";
-import { SESSION_STORAGE_KEYS } from "../pages/helpers/constants";
+import { SESSION_STORAGE_KEYS } from "../helpers/constants";
 
 const axiosInstance = axios.create({
-  baseURL: "https://api.unsplash.com/", 
+  baseURL: "https://api.unsplash.com/",
   headers: {
-    "Content-Type": "application/json", 
+    "Content-Type": "application/json",
   },
 });
-
 
 axiosInstance.interceptors.request.use(
   (config) => {

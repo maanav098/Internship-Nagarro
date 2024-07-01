@@ -4,7 +4,7 @@ import "../App.css";
 import { Random } from "../controller.tsx/imagesController";
 import { fetchImageError, fetchRandomImageSuccess } from "../store/action";
 import { errorSelector, imageSelector } from "../store/selectors";
-import DrawerAppBar from "../material/material";
+import DrawerAppBar from "../navbar_materialui/material";
 
 const Randomp: React.FC = () => {
   const dispatch = useDispatch();

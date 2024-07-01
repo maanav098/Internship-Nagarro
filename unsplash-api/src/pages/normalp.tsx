@@ -4,7 +4,7 @@ import "../App.css";
 import { API, } from "../controller.tsx/imagesController";
 import { fetchImageError, fetchImageSuccess } from "../store/action";
 import { errorSelector, imagesSelector } from "../store/selectors";
-import DrawerAppBar from "../material/material";
+import DrawerAppBar from "../navbar_materialui/material";
 
 const NormalPhotos: React.FC = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const NormalPhotos: React.FC = () => {
         ) : (
           images.length > 0 && (
             <div className="App-header">
-              {images.slice(0, 10).map((image, index) => (
+              {images.slice(0, 30).map((image, index) => (
                 <img
                   key={index}
                   src={image.urls.small}
