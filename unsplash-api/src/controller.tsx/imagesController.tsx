@@ -3,9 +3,17 @@ import strings from "../localization/en";
 import { SearchPhotosResponse } from "../store/searchInterface";
 import { Collection } from "../store/collection-Interface";
 
-export const API = async () => {
+export const API = async (
+  per_page:number,
+  pages:number,
+) => {
   try {
-    const response = await axiosInstance.get("/photos");
+    const response = await axiosInstance.get("/photos",{
+      params: {
+        per_page,
+        pages,
+    }});
+    
     console.log(response.data);
     return response.data;
   } catch (error) {

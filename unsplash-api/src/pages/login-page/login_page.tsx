@@ -1,3 +1,5 @@
+// this is the login page which is authenticated and requires a unsplash-api account or user id pass to login which will take you to the webpage.
+
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";

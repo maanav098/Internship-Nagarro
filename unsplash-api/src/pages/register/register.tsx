@@ -1,3 +1,7 @@
+// this is a testing non working register page just there for the frontend to look good
+// this is just a design of how a register page can look it is non functioning just there to connect pages
+
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";

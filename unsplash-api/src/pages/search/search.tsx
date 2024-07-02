@@ -1,3 +1,6 @@
+//this is for the searchbar which will be displayed on the frontend and will fetch the details from the Unsplash-api
+
+
 import React, { useState } from "react";
 import { Photo } from "../../store/searchInterface";
 import { fetchPhotos } from "../../controller.tsx/imagesController";
@@ -36,8 +39,9 @@ const SearchPhotosComponent: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className ="bg-color">
       <DrawerAppBar />
+      
       <div className="bar">
       <input
         className="searchbar"

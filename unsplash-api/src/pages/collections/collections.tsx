@@ -1,3 +1,5 @@
+//this page links the user to the collection where the user's personal collection on unsplash-api is displayed
+
 import React, { useEffect, useState } from "react";
 import "./collection.css";
 import DrawerAppBar from "../../navbar_materialui/material";
@@ -64,7 +66,7 @@ return (
   <div>
     <DrawerAppBar />
     <p className="text">
-      Hi, this is a testing file to check if this is displayed correctly.
+      User's current collection looks like this ...
     </p>
     <div className="collection-container">
       {collections.map((collection) =>

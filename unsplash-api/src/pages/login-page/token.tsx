@@ -1,3 +1,6 @@
+// this file just fetches the token from the unsplash-api and shoes it in the sessionStorage...
+// this basically fetches the token 
+
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/useAuth";

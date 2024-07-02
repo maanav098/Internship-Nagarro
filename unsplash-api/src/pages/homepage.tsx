@@ -1,3 +1,5 @@
+// this is the default homepage of the website the user will land on this page once he logs in to the website
+
 import "../App.css";
 import DrawerAppBar from "../navbar_materialui/material";
 import React, { useEffect, useState } from "react";
