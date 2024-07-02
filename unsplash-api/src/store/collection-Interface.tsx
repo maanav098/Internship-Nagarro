@@ -63,6 +63,7 @@ export interface CollectionLinks {
 }
 
 export interface Collection {
+  urls: any;
   id: number;
   title: string;
   description: string | null;

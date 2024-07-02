@@ -4,50 +4,44 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "../../App.css";
 import { axiosInstance } from "../../controller.tsx/axiosIntstance";
-import { fetchImageError,fetchImageSuccess } from "../../store/action";
+import { fetchImageError, fetchImageSuccess } from "../../store/action";
 import DrawerAppBar from "../../navbar_materialui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { API } from "../../controller.tsx/imagesController";
+import ImgComponent from "../../photoComponent/photo/photo";
 
 const NormalPhotos: React.FC = () => {
   const dispatch = useDispatch();
-
-
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<any[]>([]);
-  
   const [error1, setError] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-
       try {
-        const response = await axiosInstance.get(`/photos?page=${page}`);
+        const response = await axiosInstance.get(`/photos?page=${page}&&per_page=30`);
         if (response.status !== 200) {
           throw new Error("Network response was not ok");
         }
         const data = response.data;
         setItems((prevItems) => [...prevItems, ...data]);
-        // setPage((prevPage) => prevPage + 1);
       } catch (error) {
         console.log("Error fetching data:", error);
         setError(error);
-      
       }
     };
     fetchData();
-  }, [page]); 
+  }, [page]);
 
   const fetchImage = async () => {
     try {
-     
-      const data = await API
+      const data = await API;
 
       if (Array.isArray(data)) {
         const imageUrls = data.map((img) => img.urls.small);
-        dispatch(fetchImageSuccess(imageUrls)); 
+        dispatch(fetchImageSuccess(imageUrls));
       } else {
-        dispatch(fetchImageError()); 
+        dispatch(fetchImageError());
       }
     } catch (error) {
       dispatch(fetchImageError());
@@ -56,27 +50,25 @@ const NormalPhotos: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchImage(); // 
+    fetchImage();
   }, [dispatch]);
 
   const loadMoreData = () => {
-   
-    setPage(page + 1); 
+    setPage(page + 1);
   };
 
   const renderImages = () => (
     <InfiniteScroll
       dataLength={items.length}
-      next={loadMoreData} 
-      hasMore={true} 
-      loader={<h4>Loading...</h4>} 
+      next={loadMoreData}
+      hasMore={true}
+      loader={<h4>Loading...</h4>}
     >
       <div className="App-header">
         {items.map((image, index) => (
-          <img
-            key={index}
+          <ImgComponent
+            keyProp={index}
             src={image.urls.small}
-            className="App-logo"
             alt={`image_${index}`}
           />
         ))}
@@ -88,7 +80,7 @@ const NormalPhotos: React.FC = () => {
     <div>
       <DrawerAppBar />
       {renderImages()}
-      {error1 && ( 
+      {error1 && (
         <div>
           <h1 className="text">SERVER ERROR</h1>
           <p className="text">Error fetching the images</p>

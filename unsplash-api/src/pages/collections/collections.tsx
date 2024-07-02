@@ -6,9 +6,10 @@ import DrawerAppBar from "../../navbar_materialui/material";
 import {
   Collections as fetchCollections,
   getUserProfile,
-} from "../../controller.tsx/imagesController"; 
+} from "../../controller.tsx/imagesController";
 import { Collection } from "../../store/collection-Interface";
 import strings from "../../localization/en";
+import ImgComponent from "../../photoComponent/photo/photo";
 
 interface UserProfile {
   username: string;
@@ -16,7 +17,7 @@ interface UserProfile {
   last_name: string;
 }
 
-function Collections() {
+const Collections: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [collections, setCollections] = useState<Collection[]>([]);
@@ -32,10 +33,10 @@ function Collections() {
     };
 
     fetchProfile();
-  }, []); 
+  }, []);
 
   useEffect(() => {
-    if (!profile) return; 
+    if (!profile) return;
 
     const loadCollections = async () => {
       try {
@@ -48,7 +49,7 @@ function Collections() {
     };
 
     loadCollections();
-  }, [profile]); 
+  }, [profile]);
 
   if (error) {
     return (
@@ -59,29 +60,27 @@ function Collections() {
   }
 
   if (!profile || collections.length === 0) {
-    return <div>{strings.loading}</div>; 
+    return <div>{strings.loading}</div>;
   }
 
-return (
-  <div>
-    <DrawerAppBar />
-    <p className="text">
-      User's current collection looks like this ...
-    </p>
-    <div className="collection-container">
-      {collections.map((collection) =>
-        collection.preview_photos.map((photo) => (
-          <img
-            key={photo.id}
-            src={photo.urls.regular}
-            className="App-logo"
-            alt={collection.title}
-          />
-        ))
-      )}
+  return (
+    <div>
+      <DrawerAppBar />
+      <p className="text">User's current collection looks like this ...</p>
+      <div className="collection-container">
+        {collections.map((collection) =>
+          collection.preview_photos.map((photo) => (
+            <ImgComponent
+              keyProp={photo.id}
+              src={photo.urls.regular}
+              alt={collection.title}
+            />
+          ))
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-}
 export default Collections;
+
