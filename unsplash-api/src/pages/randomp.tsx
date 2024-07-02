@@ -1,3 +1,6 @@
+//this is to generate random images from unsplash-api
+
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../App.css";
