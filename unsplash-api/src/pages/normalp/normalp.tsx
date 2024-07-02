@@ -1,27 +1,26 @@
 //this is a webpage which will show you random images from the unsplash-api and this has infinitescroll{it will call the api again once you reach the end of the page}
 
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "../../App.css";
 import { axiosInstance } from "../../controller.tsx/axiosIntstance";
 import { fetchImageError,fetchImageSuccess } from "../../store/action";
-import { errorSelector, imagesSelector } from "../../store/selectors"; // Corrected import
 import DrawerAppBar from "../../navbar_materialui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { API } from "../../controller.tsx/imagesController";
 
 const NormalPhotos: React.FC = () => {
   const dispatch = useDispatch();
-  const images = useSelector(imagesSelector);
-  const error = useSelector(errorSelector);
+
+
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  
   const [error1, setError] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+
       try {
         const response = await axiosInstance.get(`/photos?page=${page}`);
         if (response.status !== 200) {
@@ -33,8 +32,7 @@ const NormalPhotos: React.FC = () => {
       } catch (error) {
         console.log("Error fetching data:", error);
         setError(error);
-      } finally {
-        setIsLoading(false);
+      
       }
     };
     fetchData();
