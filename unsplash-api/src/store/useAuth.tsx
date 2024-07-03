@@ -4,7 +4,6 @@ import { SESSION_STORAGE_KEYS } from "../helpers/constants";
 interface AuthContextType {
   isAuthenticated: boolean;
   userLogin: (username: string, password: string) => void;
-  
   login: (token: string) => void;
   logout: () => void;
 }
@@ -32,7 +31,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = (token: string) => {
     sessionStorage.setItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN, token);
-    
     setIsAuthenticated(true);
   };
 

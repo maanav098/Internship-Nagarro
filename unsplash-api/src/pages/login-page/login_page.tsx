@@ -20,6 +20,7 @@ import { ReactComponent as CustomIcon } from "./customicon.svg";
 import { paths } from "../../helpers/constants";
 import  styles from "./styles"
 import strings from "../../localization/en";
+import {  useNavigate } from "react-router";
 
 function Copyright() {
   return (
@@ -41,6 +42,7 @@ function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { userLogin } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,6 +57,7 @@ function LoginPage() {
     } else if (username === "123" && password === "pass1") {
       userLogin(username, password);
       alert(strings.alert_loggedin)
+      navigate("/")
     } else {
       alert(strings.alert_invalid);
     }
