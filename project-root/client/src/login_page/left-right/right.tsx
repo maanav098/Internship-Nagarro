@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import autoAnimate from "@formkit/auto-animate";
+import "./left_right.css";
 
 const Rightdown = () => {
   const [show, setShow] = useState(false);

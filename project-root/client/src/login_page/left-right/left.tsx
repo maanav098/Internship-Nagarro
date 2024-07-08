@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import autoAnimate from "@formkit/auto-animate";
+import Facts from "../../api_call/facts";
+import "./left_right.css"
 
 const Leftdown = () => {
   const [show, setShow] = useState(false);
@@ -14,15 +16,12 @@ const Leftdown = () => {
   return (
     <div ref={parent}>
       <strong className="dropdown-label" onClick={reveal}>
-        RANDOM FACT ABOUT BURJ KHALIFA
+        RANDOM FACT
       </strong>
       {show && (
         <p className="dropdown-content">
           <p>
-            330,000 cubic metres of concrete were used in the construction,
-            which is equivalent to the weight of 100,000 elephants as per the
-            Burj Khalifa Facts. 2. The aluminium required to construct the Burj
-            Khalifa is equivalent to the weight of five Airbus A380 planes.
+            <Facts />
           </p>
         </p>
       )}

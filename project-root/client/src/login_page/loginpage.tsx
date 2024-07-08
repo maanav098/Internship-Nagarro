@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/useAuth";
 import "./login.css";
 import Header from "./Header/Header";
 import Leftdown from "./left-right/left";
 import Rightdown from "./left-right/right";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
+import Footer from "./footer/footer";
+import Low from "./low-content/low";
 
 function Copyright() {
   return (
@@ -23,6 +27,8 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -47,7 +53,8 @@ const LoginPage: React.FC = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        alert(data.message); 
+        login();
+        navigate("/home");
       } else {
         setErrorMessage(data.message);
       }
@@ -60,9 +67,7 @@ const LoginPage: React.FC = () => {
     <div className="loginpage">
       <div className="container">
         <div className="header">
-          <p className="p">
-            <Header />
-          </p>
+          <Header />
         </div>
         <div className="left-aside">
           <Leftdown />
@@ -105,39 +110,10 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
         <div className="low-content">
-          <div>
-            <h4>About Us</h4>
-            <p>
-              We are a company dedicated to providing the best service possible.
-              Our mission is to bring quality and excellence to our customers.
-            </p>
-          </div>
+          <Low />
         </div>
         <div className="footer">
-          <div className="footer-container">
-            <div className="footer-section">
-              <h4>Quick Links</h4>
-              <ul>
-                <li>
-                  <a href="#">Home</a>
-                </li>
-                <li>
-                  <a href="#">Services</a>
-                </li>
-                <li>
-                  <a href="#">About</a>
-                </li>
-                <li>
-                  <a href="#">Contact</a>
-                </li>
-              </ul>
-            </div>
-            <div className="footer-section">
-              <h4>Contact Us</h4>
-              <p>Email: contact@company.com</p>
-              <p>Phone: (123) 456-7890</p>
-            </div>
-          </div>
+          <Footer />
         </div>
       </div>
     </div>
