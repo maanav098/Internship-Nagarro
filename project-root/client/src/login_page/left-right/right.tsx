@@ -1,33 +1,40 @@
-import { useState, useRef, useEffect } from "react";
-import autoAnimate from "@formkit/auto-animate";
-import "./left_right.css";
-
-const Rightdown = () => {
-  const [show, setShow] = useState(false);
-  const parent = useRef(null);
-
-  useEffect(() => {
-    parent.current && autoAnimate(parent.current);
-  }, [parent]);
-
-  const reveal = () => setShow(!show);
-
+import React from "react";
+import "./right.css";
+import { ReactComponent as InstagramIcon } from "../../assets/icons/instagramicon.svg"
+import { ReactComponent as TwitterIcon } from "../../assets/icons/twittericon.svg"
+import { ReactComponent as GithubIcon } from "../../assets/icons/githubicon.svg"
+import { ReactComponent as FacebookIcon } from "../../assets/icons/metaicon.svg"
+const Rightdown: React.FC = () => {
   return (
-    <div ref={parent}>
-      <strong className="dropdown-label" onClick={reveal}>
-        Click here!
-      </strong>
-      {show && (
-        <p className="dropdown-content">
-          Apple recently launched a cutting-edge AI-powered analytics platform
-          that helps businesses optimize their supply chain operations. This
-          platform utilizes quantum computing algorithms to process massive
-          datasets in real-time, providing unparalleled insights and predictive
-          capabilities. Quantum Solutions Inc. aims to revolutionize the
-          logistics industry by enabling companies to achieve unprecedented
-          efficiency and cost savings through advanced technology integration.
-        </p>
-      )}
+    <div className="main">
+      <div className="up">
+        <button
+          className="card1"
+          onClick={() => window.open("https://www.instagram.com/", "_blank")}
+        >
+          <InstagramIcon className="instagram" width="30px" height="30px" />
+        </button>
+        <button
+          className="card2"
+          onClick={() => window.open("https://x.com/home?lang=en", "_blank")}
+        >
+          <TwitterIcon className="twitter" width="30px" height="30px" />
+        </button>
+      </div>
+      <div className="down">
+        <button
+          className="card3"
+          onClick={() => window.open("https://github.com/", "_blank")}
+        >
+          <GithubIcon className="github" width="30px" height="30px" />
+        </button>
+        <button
+          className="card4"
+          onClick={() => window.open("https://www.facebook.com/", "_blank")}
+        >
+          <FacebookIcon className="facebook" width="30px" height="30px" />
+        </button>
+      </div>
     </div>
   );
 };

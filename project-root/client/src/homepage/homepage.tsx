@@ -1,90 +1,162 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Result from "./result";
 import Error from "./error";
 import "./homepage.css";
-import "./searchbar.css";
 import { ReactComponent as ImagesIcon } from "../assets/icons/camera-svgrepo-com.svg";
 import { ReactComponent as VoiceIcon } from "../assets/icons/microphone-svgrepo-com.svg";
+import Load from "./loading/loading";
+import { Grid } from "@mui/material";
 
 
 const HomePage: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [result, setResult] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [chatHistory, setChatHistory] = useState<
+    { question: string; answer: string }[]
+  >([]);
+
+
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log("Submit Clicked")
     e.preventDefault();
-    
+    setLoading(true);
 
     try {
       const response = await axios.post("/gemini", { query });
-      setResult(response.data.result || "No content found.");
+      const answer = response.data.result || "No content found.";
+      setResult(answer);
       setError("");
+      addToChatHistory(query, answer);
     } catch (err: any) {
       setError(err.response?.data?.error || "Unknown error occurred.");
       setResult("");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const addToChatHistory = (question: string, answer: string) => {
+    setChatHistory((prev) => [...prev, { question, answer }]);
   };
 
   const handleImagesClick = () => {
     console.log("Images clicked");
-    
   };
 
   const handleVoiceClick = () => {
     console.log("Voice clicked");
-    
+    alert(
+      "This website requires your microphone access for this tool to be used... "
+    );
   };
+  
 
   return (
-    <div className="b">
-      <h1>Welcome to the Homepage!</h1>
-      <form className="search-form" onSubmit={handleSubmit}>
-        <input
-          type="search"
-          value={query}
-          placeholder="Search"
-          className="search-input"
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <div className="search-option">
-          <div>
-            <input
-              name="type"
-              type="radio"
-              value="type-images"
-              id="type-images"
-            />
-            <label htmlFor="type-images" onClick={handleImagesClick}>
-              <ImagesIcon className="icon" />
-              <span>Images</span>
-            </label>
-          </div>
-          <div>
-            <input
-              name="type"
-              type="radio"
-              value="type-special"
-              id="type-special"
-              defaultChecked
-            />
-            <label htmlFor="type-special" onClick={handleVoiceClick}>
-              <VoiceIcon className="icon" />
-              <span>Voice</span>
-            </label>
-          </div>
-        </div>
-
-        <button type="submit" className="button">
-          Search
-        </button>
-      </form>
-      <div className="results">
-        {result && <Result result={result} />}
-        {error && <Error error={error} />}
+    <div>
+      <div className="head">
+        <h1>Welcome to Homepage</h1>
       </div>
+      <Grid container spacing={2}>
+        {/* Left Side */}
+        <Grid
+          item
+          xs={12}
+          md={4}
+          className="left-grid"
+          display={"flex"}
+          alignItems={"flex-start"}
+        >
+          <div className="left-side-container">
+            <h2 className="p">Results:</h2>
+            <div className="results">
+              {result && <Result result={result} />}
+              {error && <Error error={error} />}
+            </div>
+          </div>
+        </Grid>
+
+        {/* Right Side */}
+        <Grid
+          item
+          xs={12}
+          md={8}
+          className="right-grid"
+          p={2}
+          display={"flex"}
+          alignItems={"flex-end"}
+        >
+          <div className="chat-container">
+            <div className="chat-history" ref={chatContainerRef}>
+              {chatHistory.map((chat, index) => (
+                <div key={index} className="chat-item">
+                  <div className="message self">
+                    <p>{chat.question}</p>
+                  </div>
+                  <br />
+                  <div className="message other">
+                    <p>{chat.answer}</p>
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="loading">
+                  <Load />
+                </div>
+              )}
+            </div>
+            <form className="search-form" onSubmit={handleSubmit}>
+              <input
+                type="search"
+                value={query}
+                placeholder="Type a message..."
+                className="search-input"
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <div className="search-option">
+                <div>
+                  <input
+                    name="type"
+                    type="radio"
+                    value="type-images"
+                    id="type-images"
+                  />
+                  <label htmlFor="type-images" onClick={handleImagesClick}>
+                    <ImagesIcon className="icon" />
+                    <span>Images</span>
+                  </label>
+                </div>
+                <div>
+                  <input
+                    name="type"
+                    type="radio"
+                    value="type-special"
+                    id="type-special"
+                    defaultChecked
+                  />
+                  <label htmlFor="type-special" onClick={handleVoiceClick}>
+                    <VoiceIcon className="icon" />
+                    <span>Voice</span>
+                  </label>
+                </div>
+              </div>
+              <button type="submit" className="button">
+                Send
+              </button>
+            </form>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

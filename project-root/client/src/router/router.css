@@ -1,0 +1,30 @@
+.login-background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+}
+
+
+
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode .login-background {
+  background-color: #1d1d1d;
+}
+
+.dark-mode .home-background {
+  background-color: #1d1d1d;
+}
+
+
+
+
+
+
+
+

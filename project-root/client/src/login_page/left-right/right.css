@@ -1,0 +1,66 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.up {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+
+.down {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+
+.card1,.card2,.card3,.card4{
+      height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.card1:hover {
+  box-shadow: 0 0 20px #e4405f;
+}
+
+.card2:hover {
+  box-shadow: 0 0 20px #1da1f2;
+}
+
+.card3:hover {
+  box-shadow: 0 0 20px #000;
+}
+
+.card4:hover {
+  box-shadow: 0 0 20px #3b5998;
+}
+
+svg {
+  fill: currentColor;
+}
+
+.instagram {
+  color: #e4405f;
+}
+
+.twitter {
+  color: #1da1f2;
+}
+
+.github {
+  color: #000;
+}
+
+.facebook {
+  color: #3b5998;
+}
