@@ -5,20 +5,6 @@
   align-items: center;
 }
 
-.search-bar {
-  display: flex;
-  width: 100%;
-  max-width: 1000px;
-  margin-bottom: 20px;
-}
-
-.search-bar input {
-  flex: 1;
-  padding: 10px;
- 
-  border-radius: 4px 0 0 4px;
-  outline: none;
-}
 
 .button {
   appearance: button;
@@ -35,7 +21,6 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
-  margin: 5px 5px 10px 5px;
   overflow: visible;
   padding: 12px 40px;
   text-align: center;
@@ -45,8 +30,9 @@
   -webkit-user-select: none;
   vertical-align: middle;
   white-space: nowrap;
-  padding: 10px 20px;
+  padding: 6px 10px;
   background-color: #007bff;
+  margin: 0px 12px 4px 0px;
 }
 
 .button:hover {
@@ -70,7 +56,7 @@
 }
 .left-side-container{
   width: 100%;
-  min-height: 600px;
+  min-height: 670px;
   max-height: auto;
   background-color: whitesmoke;
   color: blue;
@@ -99,7 +85,7 @@
   appearance: button;
   width: 32px;
   height: 32px;
-  margin-right: 8px;
+  
   vertical-align: middle;
   border: 1px solid #000;
   border-radius: 4px;
@@ -110,6 +96,7 @@
   display: inline-block;
   fill: #333;
   background-color: lightblue;
+  margin:1px 4px 5px 12px
 }
 
 
@@ -165,21 +152,39 @@
   background-color: #e0e0e0;
 }
 
+
+
 .search-input {
-  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
   font-size: 16px;
-    padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   outline: none;
   width: 100%;
-  max-width: 1000px;
-  margin-bottom: 20px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  white-space: nowrap;
 }
+
+@media (max-width: 768px) {
+  .search-input {
+    margin-right: 5px;
+    font-size: 14px;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-input {
+    margin-right: 5px;
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
 
 .p{
   color: #000;
@@ -213,24 +218,26 @@
 
 .search-form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  max-width: auto;
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 10px;
   border-radius: 10px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
 }
-
 
 .search-option {
   display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-  max-width: 1000px;
-  margin: 12px 20px 24px 20px;
-  display: flex;
+  justify-content:flex; 
+  margin:10px;
   align-items: center;
+  background-color: beige;
+  border-radius: 10px;
+  padding:2px;
 }
 
 .search-option div {
@@ -267,16 +274,6 @@ svg.submit-button {
   height: 100vh;
 }
 
-.left-grid,
-.right-grid {
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-
-
 .dark-mode .self{
   background-color: darkseagreen;
 }
@@ -297,7 +294,7 @@ svg.submit-button {
     padding: 1px 5px;
   }
  .button {
-    padding: 12px 50px;
+     padding: 8px 16px 8px 16px;
   }
  
 }

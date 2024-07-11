@@ -64,15 +64,13 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      <div className="head">
-        <h1>Welcome to Homepage</h1>
-      </div>
       <Grid container spacing={2}>
         {/* Left Side */}
         <Grid
           item
           xs={12}
           md={4}
+          padding={1}
           className="left-grid"
           display={"flex"}
           alignItems={"flex-start"}
@@ -92,7 +90,7 @@ const HomePage: React.FC = () => {
           xs={12}
           md={8}
           className="right-grid"
-          p={2}
+          padding={1}
           display={"flex"}
           alignItems={"flex-end"}
         >
@@ -115,45 +113,44 @@ const HomePage: React.FC = () => {
                 </div>
               )}
             </div>
-            <form className="search-form" onSubmit={handleSubmit}>
-              <input
-                type="search"
-                value={query}
-                placeholder="Type a message..."
-                className="search-input"
-                onChange={(e) => setQuery(e.target.value)}
-              />
-              <div className="search-option">
-                <div>
-                  <input
-                    name="type"
-                    type="radio"
-                    value="type-images"
-                    id="type-images"
-                  />
-                  <label htmlFor="type-images" onClick={handleImagesClick}>
-                    <ImagesIcon className="icon" />
-                    <span>Images</span>
-                  </label>
-                </div>
-                <div>
-                  <input
-                    name="type"
-                    type="radio"
-                    value="type-special"
-                    id="type-special"
-                    defaultChecked
-                  />
-                  <label htmlFor="type-special" onClick={handleVoiceClick}>
-                    <VoiceIcon className="icon" />
-                    <span>Voice</span>
-                  </label>
-                </div>
+            <div className="search-option">
+              <div>
+                <input
+                  name="type"
+                  type="radio"
+                  value="type-images"
+                  id="type-images"
+                />
+                <label htmlFor="type-images" onClick={handleImagesClick}>
+                  <ImagesIcon className="icon" />
+                </label>
               </div>
-              <button type="submit" className="button">
-                Send
-              </button>
-            </form>
+              <div>
+                <input
+                  name="type"
+                  type="radio"
+                  value="type-special"
+                  id="type-special"
+                  defaultChecked
+                />
+                <label htmlFor="type-special" onClick={handleVoiceClick}>
+                  <VoiceIcon className="icon" />
+                </label>
+              </div>
+
+              <form className="search-form" onSubmit={handleSubmit}>
+                <input
+                  type="search"
+                  value={query}
+                  placeholder="Type a message..."
+                  className="search-input"
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <button type="submit" className="button">
+                  Send
+                </button>
+              </form>
+            </div>
           </div>
         </Grid>
       </Grid>
