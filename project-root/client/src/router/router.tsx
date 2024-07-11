@@ -20,8 +20,6 @@ const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children }) => {
     backgroundClass += " login-background";
   } else if (location.pathname === "/home") {
     backgroundClass += " home-background";
-  } else if (location.pathname === "/contact") {
-    backgroundClass += " contact-background";
   }
 
   return <div className={backgroundClass}>{children}</div>;

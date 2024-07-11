@@ -4,8 +4,8 @@ const Header = () => {
   return (
     <div>
       <h1>
-        Welcome to{" "}
-        <ReactTyped strings={["this website"]} typeSpeed={150} loop />
+        {" "}
+        <ReactTyped strings={["This is a testing website..."]} typeSpeed={250} loop />
       </h1>
     </div>
   );

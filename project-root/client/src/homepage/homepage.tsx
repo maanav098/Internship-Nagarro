@@ -8,7 +8,6 @@ import { ReactComponent as VoiceIcon } from "../assets/icons/microphone-svgrepo-
 import Load from "./loading/loading";
 import { Grid } from "@mui/material";
 
-
 const HomePage: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [result, setResult] = useState<string>("");
@@ -17,7 +16,6 @@ const HomePage: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<
     { question: string; answer: string }[]
   >([]);
-
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -43,6 +41,7 @@ const HomePage: React.FC = () => {
       setResult("");
     } finally {
       setLoading(false);
+      setQuery(""); 
     }
   };
 
@@ -60,101 +59,98 @@ const HomePage: React.FC = () => {
       "This website requires your microphone access for this tool to be used... "
     );
   };
-  
 
   return (
-    <div>
-      <Grid container spacing={2}>
-        {/* Left Side */}
-        <Grid
-          item
-          xs={12}
-          md={4}
-          padding={1}
-          className="left-grid"
-          display={"flex"}
-          alignItems={"flex-start"}
-        >
-          <div className="left-side-container">
-            <h2 className="p">Results:</h2>
-            <div className="results">
-              {result && <Result result={result} />}
-              {error && <Error error={error} />}
-            </div>
+    <Grid container spacing={2}>
+      {/* Left Side */}
+      <Grid
+        item
+        xs={12}
+        md={4}
+        padding={1}
+        className="left-grid"
+        display={"flex"}
+        alignItems={"flex-start"}
+      >
+        <div className="left-side-container">
+          <h2 className="p">Result:</h2>
+          <div className="results">
+            {result && <Result result={result} />}
+            {error && <Error error={error} />}
           </div>
-        </Grid>
-
-        {/* Right Side */}
-        <Grid
-          item
-          xs={12}
-          md={8}
-          className="right-grid"
-          padding={1}
-          display={"flex"}
-          alignItems={"flex-end"}
-        >
-          <div className="chat-container">
-            <div className="chat-history" ref={chatContainerRef}>
-              {chatHistory.map((chat, index) => (
-                <div key={index} className="chat-item">
-                  <div className="message self">
-                    <p>{chat.question}</p>
-                  </div>
-                  <br />
-                  <div className="message other">
-                    <p>{chat.answer}</p>
-                  </div>
-                </div>
-              ))}
-              {loading && (
-                <div className="loading">
-                  <Load />
-                </div>
-              )}
-            </div>
-            <div className="search-option">
-              <div>
-                <input
-                  name="type"
-                  type="radio"
-                  value="type-images"
-                  id="type-images"
-                />
-                <label htmlFor="type-images" onClick={handleImagesClick}>
-                  <ImagesIcon className="icon" />
-                </label>
-              </div>
-              <div>
-                <input
-                  name="type"
-                  type="radio"
-                  value="type-special"
-                  id="type-special"
-                  defaultChecked
-                />
-                <label htmlFor="type-special" onClick={handleVoiceClick}>
-                  <VoiceIcon className="icon" />
-                </label>
-              </div>
-
-              <form className="search-form" onSubmit={handleSubmit}>
-                <input
-                  type="search"
-                  value={query}
-                  placeholder="Type a message..."
-                  className="search-input"
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-                <button type="submit" className="button">
-                  Send
-                </button>
-              </form>
-            </div>
-          </div>
-        </Grid>
+        </div>
       </Grid>
-    </div>
+
+      {/* Right Side */}
+      <Grid
+        item
+        xs={12}
+        md={8}
+        className="right-grid"
+        padding={1}
+        display={"flex"}
+        alignItems={"flex-end"}
+      >
+        <div className="chat-container">
+          <div className="chat-history" ref={chatContainerRef}>
+            {chatHistory.map((chat, index) => (
+              <div key={index} className="chat-item">
+                <div className="message self">
+                  <p>{chat.question}</p>
+                </div>
+                <br />
+                <div className="message other">
+                  <p>{chat.answer}</p>
+                </div>
+              </div>
+            ))}
+            {loading && (
+              <div className="loading">
+                <Load />
+              </div>
+            )}
+          </div>
+          <div className="search-option">
+            <div>
+              <input
+                name="type"
+                type="radio"
+                value="type-images"
+                id="type-images"
+              />
+              <label htmlFor="type-images" onClick={handleImagesClick}>
+                <ImagesIcon className="icon" />
+              </label>
+            </div>
+            <div>
+              <input
+                name="type"
+                type="radio"
+                value="type-special"
+                id="type-special"
+                defaultChecked
+              />
+              <label htmlFor="type-special" onClick={handleVoiceClick}>
+                <VoiceIcon className="icon" />
+              </label>
+            </div>
+
+            <form className="search-form" onSubmit={handleSubmit}>
+              <input
+                type="search"
+                value={query}
+                placeholder="Type a message..."
+                className="search-input"
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <button type="submit" className="button">
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,10 +1,16 @@
 import React from "react";
 import "./right.css";
-import { ReactComponent as InstagramIcon } from "../../assets/icons/instagramicon.svg"
-import { ReactComponent as TwitterIcon } from "../../assets/icons/twittericon.svg"
-import { ReactComponent as GithubIcon } from "../../assets/icons/githubicon.svg"
-import { ReactComponent as FacebookIcon } from "../../assets/icons/metaicon.svg"
+import { ReactComponent as InstagramIcon } from "../../assets/icons/instagramicon.svg";
+import { ReactComponent as TwitterIcon } from "../../assets/icons/twittericon.svg";
+import { ReactComponent as GithubIcon } from "../../assets/icons/githubicon.svg";
+import { ReactComponent as FacebookIcon } from "../../assets/icons/metaicon.svg";
+import Clock from "./clock";
+
+
+
 const Rightdown: React.FC = () => {
+  
+
   return (
     <div className="main">
       <div className="up">
@@ -35,8 +41,8 @@ const Rightdown: React.FC = () => {
           <FacebookIcon className="facebook" width="30px" height="30px" />
         </button>
       </div>
+      <Clock />
     </div>
   );
 };
-
 export default Rightdown;
