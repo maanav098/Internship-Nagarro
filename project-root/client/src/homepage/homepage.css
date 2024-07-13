@@ -4,6 +4,12 @@
   flex-direction: column;
   align-items: center;
 }
+.uploaded-image {
+  max-width: 200px;
+  max-height: 200px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
 
 
 .button {

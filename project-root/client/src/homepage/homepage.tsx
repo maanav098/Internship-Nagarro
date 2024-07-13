@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Result from "./result";
 import Error from "./error";
-import "./homepage.css";
+import "./homepage.css"
 import { ReactComponent as ImagesIcon } from "../assets/icons/camera-svgrepo-com.svg";
 import { ReactComponent as VoiceIcon } from "../assets/icons/microphone-svgrepo-com.svg";
 import Load from "./loading/loading";
@@ -14,9 +14,9 @@ const HomePage: React.FC = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [chatHistory, setChatHistory] = useState<
-    { question: string; answer: string }[]
+    { question: string; answer: string; image?: string }[]
   >([]);
-
+  const [file, setFile] = useState<File | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,31 +26,69 @@ const HomePage: React.FC = () => {
     }
   }, [chatHistory]);
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setFile(event.target.files[0]);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await axios.post("/gemini", { query });
-      const answer = response.data.result || "No content found.";
+      let answer = "";
+
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("query", query);
+
+        const response = await axios.post(
+          "http://localhost:5000/gemini",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        answer = response.data.result || "No content found.";
+        addToChatHistory(query, answer, URL.createObjectURL(file));
+        setFile(null);
+
+        // Delete the file after use
+        URL.revokeObjectURL(URL.createObjectURL(file));
+      } else {
+        const response = await axios.post("http://localhost:5000/gemini", {
+          query,
+        });
+        answer = response.data.result || "No content found.";
+        addToChatHistory(query, answer);
+      }
+
       setResult(answer);
       setError("");
-      addToChatHistory(query, answer);
     } catch (err: any) {
+      console.error(err);
       setError(err.response?.data?.error || "Unknown error occurred.");
       setResult("");
     } finally {
       setLoading(false);
-      setQuery(""); 
+      setQuery("");
     }
   };
 
-  const addToChatHistory = (question: string, answer: string) => {
-    setChatHistory((prev) => [...prev, { question, answer }]);
+  const addToChatHistory = (
+    question: string,
+    answer: string,
+    image?: string
+  ) => {
+    setChatHistory((prev) => [...prev, { question, answer, image }]);
   };
 
   const handleImagesClick = () => {
-    console.log("Images clicked");
+    document.getElementById("file-input")?.click();
   };
 
   const handleVoiceClick = () => {
@@ -99,6 +137,15 @@ const HomePage: React.FC = () => {
                   <p>{chat.question}</p>
                 </div>
                 <br />
+                {chat.image && (
+                  <div className="message self">
+                    <img
+                      src={chat.image}
+                      alt="uploaded"
+                      className="uploaded-image"
+                    />
+                  </div>
+                )}
                 <div className="message other">
                   <p>{chat.answer}</p>
                 </div>
@@ -117,10 +164,17 @@ const HomePage: React.FC = () => {
                 type="radio"
                 value="type-images"
                 id="type-images"
+                style={{ display: "none" }}
               />
               <label htmlFor="type-images" onClick={handleImagesClick}>
                 <ImagesIcon className="icon" />
               </label>
+              <input
+                type="file"
+                id="file-input"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
             </div>
             <div>
               <input
